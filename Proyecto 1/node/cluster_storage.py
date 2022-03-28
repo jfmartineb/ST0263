@@ -20,11 +20,21 @@ def define_ranges():
     print(cluster)
     save()
 
+def stringToNum(cadena):
+    num = 0
+    for i in cadena:
+        num = num + int(ord(i))
+    return num
+
 def redirect(key):
+    key = stringToNum(key)
     hashed = hash(key)
     if hashed < 0:
         hashed = hashed * -1
-    val = int(hashed/2**20)
+    if (hashed) > 2048:
+        val = int(hashed/2**20)
+    else: 
+        val = hashed
     for i in cluster:
         if cluster[i] > val:
             break
