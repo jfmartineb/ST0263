@@ -27,7 +27,7 @@ Proyecto1 Topicos Especiales en Telematica
 2. Correr con python el archivo  ST0263_P1/node/main_server.py -c ## 'nombre'. Siendo ## el número de puerto que se desee,
     en este puerto estará el servidor de frontend, y 'nombre' un nombre cualquiera que se le debe dar al cluster. Este nombre
     es fundamental para recuperar los datos, ya que con este nombre se almacenan los nodos participes en el sistema de base de 
-    datos distribuida.
+    datos distribuida. Si es la primera vez que corre un nodo, sepreguntará cuales nodos se incluirán en la distribución, decir stop para dejar de ingresar nodos.
 
 3. Correr el programa ST0263_P1/main_client.py -h host -p puerto, donde el host se puede dejar en blanco y tomará 
     como predeterminado el localhost o el 127.0.0.1 y el número de puerto se debe indicar el indicado por el servidor. En este caso se especifica el puerto del servidor front-end, los comandos son similares al modo single-node.
@@ -45,3 +45,5 @@ Nota: para ver todos los redireccionamientos de la base de datos redistribuida s
 ## Documentacion de endpoints con OpenAPI
 Mientras el servidor corre abrir el navegador y acceder a
 ```host:port/docs```
+
+## 

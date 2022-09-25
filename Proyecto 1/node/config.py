@@ -37,6 +37,10 @@ def get_data_path():
     data_path = conf_path / f'node-{port}' / 'dbfile'
     return data_path
 
+def get_repl_path(id):
+    data_path = conf_path / f'node-{port}' / f'r-{id}'
+    return data_path
+
 def get_cluster_path(name):
     data_path = conf_path / f'node-{port}' / f'cluster-{name}' / 'dbfile'
     return data_path

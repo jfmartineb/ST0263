@@ -25,7 +25,7 @@ def delete(key: str):
 
 
 def save():
-    data_file = open(config.get_data_path(), 'wb')
+    data_file = open(config.get_repl_path(), 'wb')
     pickle.dump(data, data_file)
     data_file.close()
 
@@ -33,7 +33,7 @@ def save():
 def load():
     global data, data_file
     try:
-        data_file = open(config.get_data_path(), 'rb')
+        data_file = open(config.get_repl_path(), 'rb')
         data = pickle.load(data_file)
         print(data)
         data_file.close()
