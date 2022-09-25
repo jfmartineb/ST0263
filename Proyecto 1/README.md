@@ -46,4 +46,34 @@ Nota: para ver todos los redireccionamientos de la base de datos redistribuida s
 Mientras el servidor corre abrir el navegador y acceder a
 ```host:port/docs```
 
+<<<<<<< HEAD
 ## 
+=======
+## Arquitectura de la solución
+
+La arquitectura que se presenta es un cliente - servidor básico, donde se tiene un archivo de cliente (main_client.py) que
+se conecta a un servidor front-end (main_server.py). Este servidor puede funcionar de dos maneras diferentes:
+
+- Como base de dato en nodo único: recibe las peticiones y las realiza en el mismo servidor.
+- Como base de datos distribuida: recibe las peticiones y las reenvía a diferentes nodos que esten conectados al
+  servidor.
+
+Para iniciar un modo o el otro se explico en el anterior índice. Un punto cumplido fundamental es la transparencia del 
+cliente hacia el servidor, ya que el cliente no tiene manera de saber si el servidor al cual se está conectando se trata
+de un nodo único o una base de datos distribuida.
+
+Otro dato importante que merece la pena comentar, es que todas las comunicaciones (cliente servidor y servidor nodos) son
+asincrónicas, por lo que se garantiza la consistencia, pero se sacrifica el rendimiento. También trae problemas con la
+escalabilidad del proyecto, sin embargo, se trata de una base de datos minimalista con fines educativos.
+
+### Ventajas de la solución implementada
+
+Esta solución que se implementó tiene varias características que podrían sobresalir:
+
+- Se cumple el principio de la transparencia por parte del usuario hacia el servidor.
+- Se cumplío el reto del particionamiento de la base de datos, ya que se pudo dividir el almacenamiento en los diferentes
+  nodos del sistema.
+- Se logró cumplir con la persistencia, ya que al crear cualquier cambio como un set o un delete se almacena la informción
+  en un archivo .pickle (serialización del diccionario) en el disco duro del equipo, por si se apaga el servidor y se vuelve
+  a encender, se sigue manejando la misma información del último cambio realizado.
+>>>>>>> 54562fd85c0c26d91eaa371d675902188f83d1c4
