@@ -76,7 +76,6 @@ Esta solución que se implementó tiene varias características que podrían sob
 - Se logró cumplir con la persistencia, ya que al crear cualquier cambio como un set o un delete se almacena la informción
   en un archivo .pickle (serialización del diccionario) en el disco duro del equipo, por si se apaga el servidor y se vuelve
   a encender, se sigue manejando la misma información del último cambio realizado.
->>>>>>> 54562fd85c0c26d91eaa371d675902188f83d1c4
 -Mejora en el rendimiento: al estar los datos distribuidos en diferentes nodos, los múltiples accesos no saturan los servidores. Esto es importante sobre todo en el caso de aplicaciones que pueden tener miles o cientos de miles de peticiones simultáneas. El rendimiento de las aplicaciones aumenta notablemente.
 -Con la replicación de base de datos aumentas la seguridad de los datos ya que las actualizaciones están siendo escritas en varios nodos. Es decir, varios discos, varias fuentes de alimentación, CPU’s, etc. son utilizadas para asegurar que tus datos estarán a salvo en algunos servidores, aunque pueda ocurrir un desastre en otros.
 -Las particiones pueden almacenar más datos que los datos en un solo disco o partición del sistema de archivos, porque podemos almacenar datos particionados en diferentes discos físicos.
