@@ -3,6 +3,7 @@ from unicodedata import name
 import config 
 import pickle
 import hashlib
+from requests import get, post, delete
 
 cluster = {}
 
@@ -10,8 +11,8 @@ def add(port):
     global cluster
     if not ("ports" in cluster):
         cluster["ports"] = []
-    cluster[port] = [] 
-    cluster["ports"].append(port)
+    cluster[str(port)] = [] 
+    cluster["ports"].append(str(port))
     print(cluster)
     save()
 
@@ -40,11 +41,31 @@ def hash_name(name):
 
 def redirect(key):
     key = hash_name(key)
+
     for i in cluster:
-        if cluster[i][0] > key:
+        if int(cluster[i][0]) > key:
             break
+
     print("redirecting to node -> ", i)
     return i
+
+def find_replica(port):
+    parent = 0
+
+    for key in cluster["ports"]:
+        if (port in cluster[key]):
+            parent = key
+            break
+    
+    return parent
+
+def create_replica_files():
+    for i in cluster["ports"]:
+        response = get(f"http://localhost:{cluster[i][1]}/create?key={i}")
+        if (str(response)[11:-2] == "200"):
+            print("Created replica")
+        else:
+            print(f"Failed to create replica of {i}")
 
 def save():
     cluster_file = open(config.get_cluster_path(nameG), 'wb')

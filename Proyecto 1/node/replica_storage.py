@@ -25,15 +25,16 @@ def delete(key: str):
 
 
 def save():
-    data_file = open(config.get_repl_path(), 'wb')
+    data_file = open(config.get_repl_path(id), 'wb')
     pickle.dump(data, data_file)
     data_file.close()
 
 
-def load():
-    global data, data_file
+def load(idR):
+    global id, data, data_file
+    id = idR
     try:
-        data_file = open(config.get_repl_path(), 'rb')
+        data_file = open(config.get_repl_path(id), 'rb')
         data = pickle.load(data_file)
         print(data)
         data_file.close()

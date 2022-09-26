@@ -18,15 +18,25 @@ class Item(BaseModel):
 @app.post("/", status_code=201)
 async def set_kv(item: Item, response: Response):
     i = cluster_storage.redirect(item.key)
+    replica = cluster_storage.find_replica(i)
+    print(replica)
     string = "http://localhost:" + i
-    request = string+ "/?key=" + item.key
+    stringR = "http://localhost:" + replica
+    request = string + "/?key=" + item.key
     response = get(request.replace(" ",""))
+    print("Proved no more with same name")
+
     if response.text is not None:
         response.status_code = status.HTTP_200_OK
 
     dato = {"key": str(item.key), "value": str(item.value)}
     request2 = string+"/"
     response2 = post(request2.replace(" ",""), data=dumps(dato))
+    print ("Sended to main node")
+    request2R = stringR + "/repl"
+    responseR = post(request2R.replace(" ",""), data=dumps(dato))
+    print ("Sended to replica")
+
     return response2.text
 
 
