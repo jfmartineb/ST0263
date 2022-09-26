@@ -1,5 +1,5 @@
 # ST0263_P1
-Proyecto1 Topicos Especiales en Telematica
+Proyecto1 Topicos Especiales en Telematica desarrollado por Juan Felipe Martínez, Rafael Gomez y Juan Camilo Iguaran
 
 1. Ubicarse en la carpeta ST0263_P1
 
