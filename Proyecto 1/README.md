@@ -49,6 +49,17 @@ Mientras el servidor corre abrir el navegador y acceder a
 <<<<<<< HEAD
 ## 
 =======
+
+# Avances semana a semana
+## Semana 1
+Durante la semana 1 se trabajó e implementaron las operaciones CRUD(create, delete, update). Se implementó el cliente.
+## Semana 2
+Durante la semana 2 se implementó el particionamiento utilizando algoritmos hash, que permitía buscar un dato dentro de un nodo según su key-value
+## Semana 3
+En la semana 3 se implementó la replicación, creando distintos nodos. Se tiene un nodo maestro y 3 replicas; el nodo maestro desde el puerto 6050 y 3 replicas en los nodos 6051, 6052 y 6053 respectivamente. Cuando se guarda un dato desde el nodo maestro, también se guarda ese dato en los nodos esclavos.
+En el archivo cluster.py llega un parámetro que especifica si el nodo está desconectado y conectado. 
+
+
 ## Arquitectura de la solución
 
 La arquitectura que se presenta es un cliente - servidor básico, donde se tiene un archivo de cliente (main_client.py) que
