@@ -77,7 +77,8 @@ async def get_kv(key: str, response: Response):
 
     elif (cluster_storage.getPortState(replica) == 1):
         print("Getting from replica")
-        request = stringR + "repl/?key=" + key
+        request = stringR + "/repl/?key=" + key
+        print(request)
         response = get(request.replace(" ",""))
         if str(response)[11:-2] == "404":
             response.status_code = status.HTTP_404_NOT_FOUND

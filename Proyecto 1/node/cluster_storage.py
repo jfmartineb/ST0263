@@ -56,11 +56,8 @@ def redirect(key):
 def find_replica(port):
     parent = 0
 
-    for key in cluster["ports"]:
-        if (port in cluster[key]):
-            parent = key
-            break
-    
+    if port in cluster["ports"]:
+        parent = cluster[port][1]
     return parent
 
 def create_replica_files():

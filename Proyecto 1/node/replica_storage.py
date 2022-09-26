@@ -12,6 +12,7 @@ def set(key: str, value: str):
 
 
 def get(key: str):
+    print(f"Getting {key}")
     return data.get(key, None)
 
 
