@@ -77,3 +77,9 @@ Esta solución que se implementó tiene varias características que podrían sob
   en un archivo .pickle (serialización del diccionario) en el disco duro del equipo, por si se apaga el servidor y se vuelve
   a encender, se sigue manejando la misma información del último cambio realizado.
 >>>>>>> 54562fd85c0c26d91eaa371d675902188f83d1c4
+-Mejora en el rendimiento: al estar los datos distribuidos en diferentes nodos, los múltiples accesos no saturan los servidores. Esto es importante sobre todo en el caso de aplicaciones que pueden tener miles o cientos de miles de peticiones simultáneas. El rendimiento de las aplicaciones aumenta notablemente.
+-Con la replicación de base de datos aumentas la seguridad de los datos ya que las actualizaciones están siendo escritas en varios nodos. Es decir, varios discos, varias fuentes de alimentación, CPU’s, etc. son utilizadas para asegurar que tus datos estarán a salvo en algunos servidores, aunque pueda ocurrir un desastre en otros.
+-Las particiones pueden almacenar más datos que los datos en un solo disco o partición del sistema de archivos, porque podemos almacenar datos particionados en diferentes discos físicos.
+-Rendimiento: al balancear la carga entre particiones las escrituras serán más rápidas que al centrarlas en un único servidor.
+-Disponibilidad: si un servidor esta ocupado, otro servidor puede devolver los datos. La carga de los servidores se reduce.
+-Limitaciones de almacenamiento: los datos no caben en un único servidor, así que al particionar los datos, estos pueden ser almacenados en varios servidores lo que alivianará la carga de cada servidor.
