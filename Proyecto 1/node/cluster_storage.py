@@ -19,16 +19,20 @@ def add(port):
 def define_ranges():
     j = 1
     size = len(cluster["ports"])
+    
+    if (len(cluster[cluster["ports"][0]]) == 0):
+        for i in cluster["ports"]:
+            cluster[i].append(int(65536/(size)) * j) 
+            j = j + 1
+        cluster[i].pop(0)
+        cluster[i].append(65536)
 
-    for i in cluster["ports"]:
-        cluster[i].append(int(65536/(size)) * j) 
-        j = j + 1
-    cluster[i].pop(0)
-    cluster[i].append(65536)
+        for i in range(1, len(cluster["ports"])):
+            cluster[cluster["ports"][i]].append(cluster["ports"][i - 1])
+        cluster[cluster["ports"][0]].append(cluster["ports"][-1])
 
-    for i in range(1, len(cluster["ports"])):
-        cluster[cluster["ports"][i]].append(cluster["ports"][i - 1])
-    cluster[cluster["ports"][0]].append(cluster["ports"][-1])
+        for i in range(0, len(cluster["ports"])):
+            cluster[cluster["ports"][i]].append(True)
 
     print(cluster)
     save()
@@ -61,11 +65,36 @@ def find_replica(port):
 
 def create_replica_files():
     for i in cluster["ports"]:
-        response = get(f"http://localhost:{cluster[i][1]}/create?key={i}")
+        string = f"http://localhost:{cluster[i][1]}/create?key={i}"
+        print(string)
+        response = get(string)
         if (str(response)[11:-2] == "200"):
-            print("Created replica")
+            print(f"Created replica of {cluster[i][1]} in {i}")
         else:
             print(f"Failed to create replica of {i}")
+
+def beatAll():
+    for i in cluster["ports"]:
+        try: 
+            response = get(f"http://localhost:{i}/beat")
+            cluster[i][2] = True
+        except:
+            print(f"Node {i} disconnected")
+            cluster[i][2] = False
+
+def getPortState(port):
+    code = -1
+    
+    if (port in cluster["ports"]):
+        if cluster[port][2]:
+            code = 1
+        else:
+            code = 0 
+    
+
+    print(f"State of node {port}: {code}")
+
+    return code
 
 def save():
     cluster_file = open(config.get_cluster_path(nameG), 'wb')

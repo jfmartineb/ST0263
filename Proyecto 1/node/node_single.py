@@ -12,6 +12,9 @@ class Item(BaseModel):
     key: str
     value: str
 
+@app.get("/beat", status_code=200)
+async def get_kv():
+    return True  
 
 @app.post("/", status_code=201)
 async def set_kv(item: Item, response: Response):
@@ -50,18 +53,18 @@ async def set_kv(item: Item, response: Response):
     replica_storage.set(item.key, item.value)
     return item.dict()
 
-@app.get("/repl/{id}", status_code=200)
+@app.get("/repl", status_code=200)
 async def get_kv(key: str, response: Response):
-    value = storage.get(key)
+    value = replica_storage.get(key)
     if value is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return value
     return value    
 
 
-@app.delete("/repl/{id}", status_code=200)
+@app.delete("/repl", status_code=200)
 async def del_kv(key: str, response: Response):
-    deleted: bool = storage.delete(key)
+    deleted: bool = replica_storage.delete(key)
     if not deleted:
         response.status_code = status.HTTP_404_NOT_FOUND
     return '{}'

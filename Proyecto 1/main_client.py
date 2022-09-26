@@ -2,17 +2,20 @@ from requests import get, post, delete
 import sys
 from colorama import Style, Fore
 from json import dumps
+import threading
 
 class Client:
     def __init__(self, host, port):
         self.host = "http://" +  str(host) + ":" + str(port)
+        self.secs = 5
         self.connect()
 
     def connect(self):
-        response = get(self.host+"/?key=XX")
+        response = get(self.host+"/beat")
         if (str(response)[11:-2] == "404" or str(response)[11:-2] == "200"):
             
             mns = self.host[7:len(self.host)] + " -> "
+            threading.Timer(self.secs, self.PeriodicBeat).start()
 
             while True:
                 peticion = input(Fore.GREEN + mns + Style.RESET_ALL)
@@ -48,6 +51,12 @@ class Client:
         string = self.host + "/?key=" + key
         response = delete(string)
         return response.text
+
+    def PeriodicBeat(self):
+        response = get(self.host + "/beatAll")
+        threading.Timer(self.secs, self.PeriodicBeat).start()
+
+
 
 # ------------------------------------------------------------------------------------------------------------
 

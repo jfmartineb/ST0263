@@ -28,6 +28,7 @@ def main(argv):
                     node = input("Enter a port to add to the cluster: ")
 
             cluster_storage.define_ranges()
+            print("Ranges defined")
             cluster_storage.create_replica_files()
             uvicorn.run(app=appS, host="127.0.0.1", port=int(argv[2]), log_level="info")
     else: 
